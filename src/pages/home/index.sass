@@ -1,0 +1,59 @@
+@import ../../common/styles/variables
+
+main
+  width: 100%
+  overflow-x: hidden
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: flex-start
+  gap: 3vh
+  h1
+    font-weight: 200
+    font-size: 2.4em
+  span.spectacular
+    font-weight: 400
+    font-style: italic
+    font-size: 3.5em
+    overflow: hidden
+    animation: grow-up 1s
+  @keyframes grow-up
+    from
+      transform: translateY(50px)
+      opacity: 0
+    to
+      transform: translateY(0px)
+      opacity: 1
+  button
+    padding: 12px 24px
+    font-size: 1.1em
+    border-radius: 24px
+    border: none
+    background: $clr-darkness
+    color: $clr-background
+    animation: grow-up 1s
+  div.keyboard
+    div.row
+      display: flex
+      align-items: center
+      justify-content: flex-start
+      gap: 2px
+      div.key
+        width: 60px
+        height: 60px
+        border: 1px solid #430234
+        position: relative
+        &.pressed
+          background: #430234
+        span.keycode
+          position: absolute
+          font-size: 0.8em
+          &:first-of-type
+            bottom: 2px
+            left: 2px
+          &:nth-of-type(2)
+            top: 2px
+            left: 2px
+          &:last-of-type
+            bottom: 2px
+            right: 2px

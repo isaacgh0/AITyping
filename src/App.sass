@@ -1,4 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Martian+Mono:wght@100;200;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap')
+@import ./common/styles/variables
+
 *
   padding: 0
   margin: 0
   box-sizing: border-box
+
+body
+  width: 100%
+  min-height: 100vh
+  background-image: linear-gradient(to bottom, $clr-main -5%, $clr-background 66%)
+
+p
+  font-family: 'Martian Mono', monospace
+  color: $clr-darkness
+
+h1, h2, h3, h4, h5, h6
+  font-family: 'Dosis', sans-serif
+  color: $clr-contrast
+
+span
+  font-family: 'Playfair Display', serif
+  color: $clr-contrast

@@ -1,5 +1,10 @@
+import Home from './pages/home'
 import './App.sass'
 
-const App = () => (<></>)
+const App = () => {
+  return (
+    <Home />
+  )
+}
 
 export default App
