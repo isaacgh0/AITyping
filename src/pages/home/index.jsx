@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import OpenAIContext from '../../common/context/openai'
 import settings from '../../assets/icons/settings.svg'
 import './index.sass'
 
@@ -8,8 +9,18 @@ const Home = () => {
   const [errors, setErrors] = useState(0)
   const [wpm, setWPM] = useState(0)
   const [precision, setPrecision] = useState(0)
+  const [testtext, setTestText] = useState('')
 
-  const handlePractice = () => {
+  const aicontext = useContext(OpenAIContext)
+
+  const handlePractice = async () => {
+    /* const chatCompletion = await aicontext.openai.chat.completions.create({
+      messages: [{ role: 'user', content: 'Say me something' }],
+      model: 'gpt-3.5-turbo'
+    })
+
+    console.log(chatCompletion) */
+
     setIsWritting(true)
   }
 
@@ -29,7 +40,7 @@ const Home = () => {
           <span>{precision}%</span>
         </div>
       </div>
-      <textarea name='pre' id='pre' />
+      <textarea name='pre' id='pre' readOnly>{testtext}</textarea>
       <textarea name='test' id='test' />
     </div>
   )

@@ -45,3 +45,26 @@ div.home
       cursor: pointer
       &:hover
         background: $clr-main-brightest
+  div.write-area
+    @include flex()
+    width: 90%
+    height: 50vh
+    position: relative
+    gap: 20px
+    div.results
+      position: absolute
+      opacity: 0
+      visibility: hidden
+      &.visible
+        visibility: visible
+    textarea
+      height: 100%
+      width: 40%
+      background: $clr-background-brightest
+      border: none
+      padding: 20px
+      text-align: left
+      resize: none
+      font-size: 1.2em
+      &:is(:hover, :focus)
+        outline: none
