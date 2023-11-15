@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Martian+Mono:wght@100;200;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Major+Mono+Display&family=Montserrat:wght@300;400;500&family=Roboto:ital,wght@0,300;0,400;1,500&display=swap')
 @import ./common/styles/variables
 
 *
@@ -11,14 +11,23 @@ body
   min-height: 100vh
   background: $clr-background
 
-p
-  font-family: 'Martian Mono', monospace
+textarea
+  font-family: 'Roboto', sans-serif
+  font-weight: 500
   color: $clr-contrast
+  &::placeholder
+    font-style: italic
+    color: transparentize($clr-contrast, 0.4)
 
-h1, h2, h3, h4, h5, h6
-  font-family: 'Dosis', sans-serif
+h1, h2
+  font-family: 'Montserrat', sans-serif
   color: $clr-contrast
+h1
+  font-weight: 500
+h2
+  font-weight: 300
 
-span
-  font-family: 'Playfair Display', serif
+span, p
+  font-family: 'Roboto', sans-serif
   color: $clr-contrast
+  font-weight: 400
