@@ -1,7 +1,20 @@
 const PATHS = {
-  HOME: { path: '/', text: 'Home' },
-  ABOUT: { path: '/about', text: 'About' },
-  PROFILE: { path: '/profile', text: 'Profile' }
+  HOME: {
+    path: '/',
+    text: 'Home'
+  },
+  PROFILE: {
+    path: '/profile',
+    text: 'Profile'
+  },
+  ABOUT: {
+    path: '/about',
+    text: 'About'
+  },
+  CONTACT: {
+    path: '/contact',
+    text: 'Contact'
+  }
 }
 
 export default PATHS

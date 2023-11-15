@@ -1,0 +1,33 @@
+@import ../../common/styles/variables
+@import ../../common/styles/mixins
+
+nav
+  @include flex()
+  width: 100%
+  height: 8vh
+  background: $clr-background
+  position: sticky
+  ul
+    @include flex()
+    list-style: none
+    gap: 3vw
+    li
+      a
+        @include flex(column)
+        font-size: 1.1em
+        text-decoration: none
+        &::after
+          width: 100%
+          height: 1.5px
+          content: ''
+          background: $clr-contrast
+          transform: scale(0)
+          transition: 0.1s ease
+          transform-origin: 50% 50%
+        &:hover
+          &::after
+            transform: scale(1)
+      &.center
+        margin: 0 7vw
+        img#logo
+          height: 28px

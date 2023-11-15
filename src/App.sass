@@ -11,23 +11,31 @@ body
   min-height: 100vh
   background: $clr-background
 
-textarea
+p, a, textarea
   font-family: 'Roboto', sans-serif
-  font-weight: 500
   color: $clr-contrast
+
+textarea
+  font-weight: 500
   &::placeholder
     font-style: italic
     color: transparentize($clr-contrast, 0.4)
+textarea.code
+  font-family: 'DM Mono', monospace
+p, a
+  font-weight: 400
 
-h1, h2
+span
+  font-family: 'Major Mono Display', monospace
+
+span.code
+  font-family: 'DM Mono', monospace
+  font-weight: 400
+
+h1, h2, button
   font-family: 'Montserrat', sans-serif
   color: $clr-contrast
 h1
   font-weight: 500
 h2
   font-weight: 300
-
-span, p
-  font-family: 'Roboto', sans-serif
-  color: $clr-contrast
-  font-weight: 400
