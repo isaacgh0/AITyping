@@ -8,7 +8,7 @@ const Contact = () => {
       <div className='message'>
         <textarea name='user-message' id='user-message' placeholder='Message' />
         <div className='actions'>
-          <button>Clear</button>
+          <button className='ghost'>Clear</button>
           <button>Send</button>
         </div>
       </div>

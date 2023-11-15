@@ -3,6 +3,7 @@ import Home from './pages/home'
 import About from './pages/about'
 import { OpenAIProvider } from './common/context/openai'
 import './App.sass'
+import Contact from './pages/contact'
 
 const AppPreview = () => (
   <>
@@ -10,6 +11,7 @@ const AppPreview = () => (
     <main>
       <Home />
       <About />
+      <Contact />
     </main>
   </>
 )
