@@ -1,0 +1,42 @@
+@import ../../common/styles/variables
+@import ../../common/styles/mixins
+
+div.about
+  @include flex(column, $justify: flex-start)
+  width: 100%
+  height: 80vh
+  padding: 35px
+  background: $clr-background-darknest
+  gap: 8vh
+  div.top, div.bottom
+    @include flex(column)
+    gap: 2vh
+    button
+      @include flex()
+      background: none
+      border: none
+      padding: 5px 5px 2px 5px
+      border-radius: 50%
+      a
+        padding: 0
+      img
+        width: 28px
+        height: 28px
+        filter: invert(99%) sepia(7%) saturate(28%) hue-rotate(81deg) brightness(117%) contrast(90%)
+      &:hover
+        background: $clr-contrast
+        img
+          filter: invert(9%) sepia(6%) saturate(5615%) hue-rotate(192deg) brightness(90%) contrast(87%)
+    div.cards
+      @include flex()
+      gap: 5vw
+      div.card
+        @include flex(column)
+        gap: 15px
+        img
+          width: 150px
+          height: 150px
+          border-radius: 50%
+        span
+          color: $clr-contrast
+          font-size: 1.2em
