@@ -1,59 +1,47 @@
 @import ../../common/styles/variables
+@import ../../common/styles/mixins
 
-main
+div.home
+  @include flex(column, $justify: flex-start)
   width: 100%
-  overflow-x: hidden
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: flex-start
-  gap: 3vh
-  h1
-    font-weight: 200
-    font-size: 2.4em
-  span.spectacular
-    font-weight: 400
-    font-style: italic
-    font-size: 3.5em
-    overflow: hidden
-    animation: grow-up 1s
-  @keyframes grow-up
-    from
-      transform: translateY(50px)
-      opacity: 0
-    to
-      transform: translateY(0px)
-      opacity: 1
-  button
-    padding: 12px 24px
-    font-size: 1.1em
-    border-radius: 24px
+  height: 80vh
+  background: $clr-background-darknest
+  gap: 7vh
+  padding: 35px
+  button.config
+    padding: 0
+    background: none
     border: none
-    background: $clr-second
-    color: $clr-background
-    animation: grow-up 1s
-  div.keyboard
-    div.row
-      display: flex
-      align-items: center
-      justify-content: flex-start
-      gap: 2px
-      div.key
-        width: 60px
-        height: 60px
-        border: 1px solid #430234
-        position: relative
-        &.pressed
-          background: #430234
-        span.keycode
-          position: absolute
-          font-size: 0.8em
-          &:first-of-type
-            bottom: 2px
-            left: 2px
-          &:nth-of-type(2)
-            top: 2px
-            left: 2px
-          &:last-of-type
-            bottom: 2px
-            right: 2px
+    img
+      width: 28px
+      height: 28px
+      filter: invert(99%) sepia(7%) saturate(28%) hue-rotate(81deg) brightness(117%) contrast(90%)
+  div.landing
+    @include flex(column)
+    height: 50vh
+    gap: 5vh
+    div.spectacular
+      @include flex(column)
+      gap: 15px
+      span
+        color: $clr-contrast
+        &:first-child
+          font-size: 3em
+          padding: 0 50px
+        &:last-child
+          font-size: 1.3em
+      div
+        width: 100%
+        height: 1px
+        background: transparentize($clr-contrast, 0.7)
+    button
+      padding: 10px 32px
+      background: $clr-main
+      border-radius: 3px
+      border: none
+      font-size: 1.2em
+      color: $clr-background-darknest
+      transition: 0.2s ease
+      cursor: pointer
+      &:hover
+        background: $clr-main-brightest
