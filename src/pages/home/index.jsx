@@ -14,12 +14,12 @@ const Home = () => {
   const aicontext = useContext(OpenAIContext)
 
   const handlePractice = async () => {
-    /* const chatCompletion = await aicontext.openai.chat.completions.create({
-      messages: [{ role: 'user', content: 'Say me something' }],
+    const chatCompletion = await aicontext.openai.chat.completions.create({
+      messages: [{ role: 'user', content: 'Dame un texto para practicar esritura con el tecllado de la computadora con longitud de entre 50 y 70 palabras' }],
       model: 'gpt-3.5-turbo'
     })
 
-    console.log(chatCompletion) */
+    setTestText(chatCompletion.choices[0].message.content)
 
     setIsWritting(true)
   }
@@ -40,7 +40,7 @@ const Home = () => {
           <span>{precision}%</span>
         </div>
       </div>
-      <textarea name='pre' id='pre' readOnly>{testtext}</textarea>
+      <textarea name='pre' id='pre' readOnly value={testtext} />
       <textarea name='test' id='test' />
     </div>
   )

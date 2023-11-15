@@ -1,6 +1,7 @@
-import { initializeApp } from 'firebase/app'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/firestore'
 
-const firebaseConfig = {
+const config = {
   apiKey: 'AIzaSyAPy2Umd6nfaBMYZiGdW5jbPWgKanLayDM',
   authDomain: 'aityping.firebaseapp.com',
   projectId: 'aityping',
@@ -9,6 +10,8 @@ const firebaseConfig = {
   appId: '1:404181232928:web:cf86451afb462dd5b3fb45'
 }
 
-const app = initializeApp(firebaseConfig)
+firebase.initializeApp(config)
 
-export default app
+const db = firebase.firestore()
+
+export { db }
