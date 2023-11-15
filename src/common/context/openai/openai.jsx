@@ -1,10 +1,8 @@
-import { Configuration, OpenAIApi } from 'openai'
+import { OpenAI } from 'openai'
 
-const configuration = new Configuration({
-  organization: 'org-x4FSj2Xa8dKz4rHdQAwgxC7o',
-  apiKey: process.env.REACT_APP_OPENIA_API_KEY
+const openai = new OpenAI({
+  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+  dangerouslyAllowBrowser: true
 })
-
-const openai = new OpenAIApi(configuration)
 
 export default openai

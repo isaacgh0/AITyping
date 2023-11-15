@@ -9,7 +9,9 @@ const Home = () => {
   const [wpm, setWPM] = useState(0)
   const [precision, setPrecision] = useState(0)
 
-  const handlePractice = () => setIsWritting(true)
+  const handlePractice = () => {
+    setIsWritting(true)
+  }
 
   const writeArea = () => (
     <div className='write-area'>
