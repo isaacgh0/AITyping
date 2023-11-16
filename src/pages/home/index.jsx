@@ -48,9 +48,11 @@ const Home = () => {
   const landing = () => (
     <div className='landing'>
       <div className='spectacular'>
-        <span>improve your typing skills</span>
-        <div />
-        <span className='code'>Start to write</span>
+        <div className='container'>
+          <span>improve your typing skills</span>
+        </div>
+        <div className='line' />
+        <span className='code'>Start now</span>
       </div>
       <button onClick={handlePractice}>Practice</button>
     </div>

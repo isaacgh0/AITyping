@@ -1,4 +1,4 @@
-import './idnex.sass'
+import './index.sass'
 
 const Profile = () => {
   return (

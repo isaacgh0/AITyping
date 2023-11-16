@@ -20,7 +20,13 @@ const Header = () => {
         <ul>
           {PATHS.slice(0, 2).map(inner => (
             <li key={inner.path}>
-              <Link to={inner.path} link={inner.dom} onClick={handleGoTo}>{inner.text}</Link>
+              <Link
+                to={inner.path}
+                link={inner.dom}
+                onClick={handleGoTo}
+              >
+                {inner.text}
+              </Link>
             </li>
           ))}
           <li className='center'>
@@ -28,7 +34,13 @@ const Header = () => {
           </li>
           {PATHS.slice(2, 4).map(inner => (
             <li key={inner.path}>
-              <Link to={inner.path} link={inner.dom} onClick={handleGoTo}>{inner.text}</Link>
+              <Link
+                to={inner.path}
+                link={inner.dom}
+                onClick={handleGoTo}
+              >
+                {inner.text}
+              </Link>
             </li>
           ))}
         </ul>
