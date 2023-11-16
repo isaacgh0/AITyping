@@ -1,5 +1,6 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import OpenAIContext from '../../common/context/openai'
+import FirebaseContext from '../../common/context/firebase'
 import settings from '../../assets/icons/settings.svg'
 import './index.sass'
 
@@ -10,40 +11,96 @@ const Home = () => {
   const [wpm, setWPM] = useState(0)
   const [precision, setPrecision] = useState(0)
   const [testtext, setTestText] = useState('')
+  const [text, setText] = useState('')
+  const [begin, setBegin] = useState(null)
+  const [end, setEnd] = useState(null)
 
   const aicontext = useContext(OpenAIContext)
+  const firectx = useContext(FirebaseContext)
 
   const handlePractice = async () => {
     setIsWritting(true)
 
-    /* const chatCompletion = await aicontext.openai.chat.completions.create({
-      messages: [{ role: 'user', content: 'Dame el código de ejemplo cualquiera de una estructura de control en programación, en el lenguaje c++' }],
+    const chatCompletion = await aicontext.openai.chat.completions.create({
+      messages: [{ role: 'user', content: 'Dame un texto de entre 80 y 100 palabras acerca de un suceso historico para el mundo de la programación' }],
       model: 'gpt-3.5-turbo'
     })
 
-    setTestText(chatCompletion.choices[0].message.content) */
+    setTestText(chatCompletion.choices[0].message.content)
+  }
 
-    setTimeout(() => { setTestText('Hola') }, 10000)
+  const handleKeyDown = e => {
+    const regex = /[a-zA-Z0-9 .,!?;:"()@#$%&*_+=-]/
+
+    console.log(e.key)
+
+    if (e.key === 'Backspace' || e.key === 'Tab' || e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault()
+      return
+    }
+
+    if (!regex.test(e.key)) {
+      e.preventDefault()
+    }
+
+    if (text === '') {
+      setBegin(new Date())
+    }
+  }
+
+  const handleKeyUp = e => {
+    if (testtext.length === text.length) {
+      document.getElementById('pre').focus()
+
+      e.currentTarget.readOnly = true
+
+      setEnd(new Date())
+    }
+  }
+
+  const handleChange = e => {
+    setText(e.currentTarget.value)
+  }
+
+  const handleRepeat = () => {
+    const test = document.getElementById('test')
+
+    test.readOnly = false
+
+    setResVisible(false)
+
+    setErrors(0)
+    setPrecision(0)
+    setWPM(0)
+
+    setTestText('')
+    setText('')
+
+    setBegin(null)
+    setEnd(null)
+
+    handlePractice()
   }
 
   const writeArea = () => (
     <div className={`write-area ${isWritting && testtext ? '' : 'hidden'}`}>
       <div className={`results ${resVisible ? 'visible' : ''}`}>
-        <div className='measure'>
-          <span className='code'>Errors</span>
-          <span>{errors}</span>
+        <div className='measures'>
+          <span className='code'>Errors: {errors}</span>
+          <span className='code'>Words PM: {wpm}</span>
+          <span className='code'>Precision: {precision}%</span>
         </div>
-        <div className='measure'>
-          <span className='code'>Words PM</span>
-          <span>{wpm}</span>
-        </div>
-        <div className='measure'>
-          <span className='code'>Precision</span>
-          <span>{precision}%</span>
-        </div>
+        <button onClick={handleRepeat}>Repeat</button>
       </div>
       <textarea name='pre' id='pre' readOnly value={testtext} />
-      <textarea name='test' id='test' />
+      <textarea
+        name='test'
+        id='test'
+        value={text}
+        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+        onChange={handleChange}
+      />
     </div>
   )
 
@@ -70,6 +127,42 @@ const Home = () => {
   const keyboard = () => (
     <div className='keyboard' />
   )
+
+  useEffect(() => {
+    if (begin && end) {
+      const arrTestText = testtext.split('')
+      const arrText = text.split('')
+
+      let errs = 0
+
+      for (let i = 0; i < arrTestText.length; i++) {
+        if (arrTestText[i] !== arrText[i]) {
+          errs++
+        }
+      }
+
+      let time = end.getTime() - begin.getTime()
+      time = time / 1000
+
+      const words = arrText.length * 60 / time
+      const pres = 100 - (errs * 100 / arrText.length)
+
+      setErrors(errs)
+      setPrecision(pres)
+      setWPM(words)
+
+      setResVisible(true)
+
+      const date = new Date()
+      const id = date.getTime().toString()
+
+      firectx.db.collection('Test').doc(id).set({
+        user: firectx.id, errors: errs, precision: pres, wpm: words
+      })
+        .then(ref => {})
+        .catch(err => { console.log(err) })
+    }
+  }, [begin, end])
 
   return (
     <div className='home' id='home'>
