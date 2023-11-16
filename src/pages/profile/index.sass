@@ -1,0 +1,40 @@
+@import ../../common/styles/variables
+@import ../../common/styles/mixins
+
+div.profile
+  @include flex(column)
+  width: 100%
+  padding: 10vh 5vw
+  background: $clr-background
+  gap: 2vh
+  div.content
+    @include flex($align: flex-start, $justify: space-between)
+    width: 100%
+    gap: 10vw
+    ul.radio
+      @include flex(column, flex-start, flex-start)
+      gap: 8px
+      li
+        @include flex()
+        &.selected
+          div
+            background: $clr-contrast
+          span
+            font-weight: 500
+        button
+          @include flex()
+          background: none
+          border: none
+          gap: 7px
+          cursor: pointer
+          div
+            width: 10px
+            height: 10px
+            border: 1px solid $clr-contrast
+            border-radius: 50%
+          span
+            font-family: 'DM Mono', monospace
+            font-size: 1.3em
+    div.chart
+      width: 900px
+      list-style: none

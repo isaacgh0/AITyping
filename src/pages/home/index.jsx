@@ -27,6 +27,8 @@ const Home = () => {
     })
 
     setTestText(chatCompletion.choices[0].message.content)
+
+    // setTimeout(() => setTestText('Hola esta es una prueba de texto'), 1000)
   }
 
   const handleKeyDown = e => {
