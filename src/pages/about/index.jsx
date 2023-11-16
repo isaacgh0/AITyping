@@ -13,7 +13,7 @@ const About = () => (
       <p>Open source web project to practice typing skills using AI-GPT technology</p>
       <button>
         <a href='https://github.com/isaacgh0/AITyping' target='_blank' rel='noreferrer'>
-          <img src={github} alt='Project Repository' title='AITyping Repository' />
+          <img src={github} alt='Project Repository' title='GitHub Repository' />
         </a>
       </button>
     </div>

@@ -12,10 +12,17 @@ div.home
     padding: 0
     background: none
     border: none
+    padding: 5px 5px 2px 5px
+    border-radius: 50%
+    cursor: pointer
     img
       width: 28px
       height: 28px
       filter: invert(99%) sepia(7%) saturate(28%) hue-rotate(81deg) brightness(117%) contrast(90%)
+    &:hover
+      background: $clr-contrast
+      img
+        filter: invert(9%) sepia(6%) saturate(5615%) hue-rotate(192deg) brightness(90%) contrast(87%)
   div.landing
     @include flex(column)
     height: 50vh

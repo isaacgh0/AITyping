@@ -4,8 +4,9 @@ import Navbar from './components/navbar'
 import Home from './pages/home'
 import About from './pages/about'
 import Contact from './pages/contact'
-import { OpenAIProvider } from './common/context/openai'
+import Footer from './components/footer'
 import FirebaseContext, { FirebaseProvider } from './common/context/firebase'
+import { OpenAIProvider } from './common/context/openai'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './App.sass'
@@ -48,6 +49,7 @@ const AppPreview = () => {
         <About />
         <Contact />
       </main>
+      <Footer />
     </>
   )
 }

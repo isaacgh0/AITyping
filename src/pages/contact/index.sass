@@ -15,6 +15,7 @@ div.contact
     border-radius: 10px
     padding: 25px 35px
     gap: 15px
+    margin-top: 4vh
     textarea
       resize: none
       width: 100%
@@ -31,12 +32,14 @@ div.contact
       button
         padding: 10px 32px
         border-radius: 3px
-        font-size: 1.2em
+        font-size: 1em
         transition: 0.2s ease
         cursor: pointer
+        border: none
         &:first-child
           background: $clr-background
-          border: 2px solid $clr-main
+          outline: 2px solid $clr-main
+          outline-offset: -2px
           color: $clr-main
           font-weight: 500
           &:hover
@@ -44,7 +47,6 @@ div.contact
             color: $clr-background
         &:last-child
           background: $clr-main
-          border: none
           color: $clr-background-darknest
           &:hover
             background: $clr-main-brightest
