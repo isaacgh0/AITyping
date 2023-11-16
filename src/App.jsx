@@ -1,7 +1,8 @@
 import { useContext, useEffect } from 'react'
 import { v4 as uuid } from 'uuid'
-import Navbar from './components/navbar'
+import Header from './components/header'
 import Home from './pages/home'
+import Profile from './pages/profile'
 import About from './pages/about'
 import Contact from './pages/contact'
 import Footer from './components/footer'
@@ -43,9 +44,10 @@ const AppPreview = () => {
         pauseOnHover
         theme='dark'
       />
-      <Navbar />
+      <Header />
       <main>
         <Home />
+        <Profile />
         <About />
         <Contact />
       </main>
