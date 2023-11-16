@@ -28,11 +28,14 @@
   },
   "name": "aityping",
   "private": true,
+  "homepage": "https://isaacgh0.github.io/AITyping/",
   "scripts": {
     "build": "vite build",
     "dev": "vite",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "type": "module",
   "version": "0.0.0"
