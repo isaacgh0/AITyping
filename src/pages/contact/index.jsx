@@ -34,7 +34,7 @@ const Contact = () => {
   return (
     <div className='contact'>
       <h1>Contact</h1>
-      <p>Write us a message with your opinion, suggestion or disagreement, no names or unnecessaries things</p>
+      <p>Write us a message with your opinion, suggestion or disagreement, no names or unnecessaries fields</p>
       <div className='message'>
         <textarea name='user-message' id='user-message' placeholder='Message' onInput={handleUpdateMessage} value={message} />
         <div className='actions'>

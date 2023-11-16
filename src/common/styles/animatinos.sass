@@ -1,3 +1,5 @@
+@import ./variables
+
 @keyframes increase
   from
     transform: scaleX(0)
@@ -13,3 +15,9 @@
   to
     transform: translate(0, 0)
     opacity: 1
+
+@keyframes skeleton
+  from
+    background-color: $clr-background-darknest
+  to
+    background-color: $clr-background-brightest

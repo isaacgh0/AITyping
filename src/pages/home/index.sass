@@ -5,10 +5,11 @@
 div.home
   @include flex(column, $justify: flex-start)
   width: 100%
-  height: 80vh
+  height: 90vh
   background: $clr-background-darknest
   gap: 7vh
   padding: 35px
+  position: relative
   button.config
     padding: 0
     background: none
@@ -17,17 +18,37 @@ div.home
     border-radius: 50%
     cursor: pointer
     img
-      width: 28px
-      height: 28px
+      width: 24px
+      height: 24px
       filter: invert(99%) sepia(7%) saturate(28%) hue-rotate(81deg) brightness(117%) contrast(90%)
     &:hover
       background: $clr-contrast
       img
         filter: invert(9%) sepia(6%) saturate(5615%) hue-rotate(192deg) brightness(90%) contrast(87%)
+  div.skeleton
+    position: absolute
+    top: calc(60px + 7vh)
+    margin: 0 auto
+    @include flex(column)
+    width: 90%
+    height: 60vh
+    gap: 3vh
+    div.loader
+      border-radius: 5px
+      animation: skeleton 1.3s linear infinite alternate forwards 0.5s
+      &:first-child
+        width: 60vw
+        height: 40vh
+      &:last-child
+        width: 45vw
+        height: 15vh
   div.landing
     @include flex(column)
     height: 50vh
     gap: 5vh
+    transition: 0.3s ease
+    &.hidden
+      opacity: 0
     div.spectacular
       @include flex(column)
       gap: 15px
@@ -62,9 +83,12 @@ div.home
   div.write-area
     @include flex()
     width: 90%
-    height: 50vh
+    height: 40vh
     position: relative
     gap: 20px
+    transition: 0.3s ease
+    &.hidden
+      opacity: 0
     div.results
       position: absolute
       opacity: 0
@@ -72,13 +96,15 @@ div.home
       &.visible
         visibility: visible
     textarea
+      overflow: hidden
       height: 100%
       width: 40%
       background: $clr-background-brightest
       border: none
-      padding: 20px 150px 20px 20px
+      padding: 20px 90px 20px 20px
       text-align: left
       resize: none
-      font-size: 1.3em
+      font-size: 1em
+      border-radius: 5px
       &:is(:hover, :focus)
         outline: none

@@ -32,10 +32,19 @@ div.about
       div.card
         @include flex(column)
         gap: 15px
+        &:hover
+          img
+            transform: scale(1.05)
+          span
+            transform: translateY(5px)
+            color: $clr-main-brightest
         img
           width: 150px
           height: 150px
           border-radius: 50%
+          transition: 0.2s ease
+          overflow: hidden
         span
           color: $clr-contrast
           font-size: 1.2em
+          transition: 0.2s ease

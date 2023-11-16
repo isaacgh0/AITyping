@@ -14,18 +14,20 @@ const Home = () => {
   const aicontext = useContext(OpenAIContext)
 
   const handlePractice = async () => {
-    const chatCompletion = await aicontext.openai.chat.completions.create({
-      messages: [{ role: 'user', content: 'Dame un texto para practicar esritura con el tecllado de la computadora con longitud de entre 50 y 70 palabras' }],
+    setIsWritting(true)
+
+    /* const chatCompletion = await aicontext.openai.chat.completions.create({
+      messages: [{ role: 'user', content: 'Dame el código de ejemplo cualquiera de una estructura de control en programación, en el lenguaje c++' }],
       model: 'gpt-3.5-turbo'
     })
 
-    setTestText(chatCompletion.choices[0].message.content)
+    setTestText(chatCompletion.choices[0].message.content) */
 
-    setIsWritting(true)
+    setTimeout(() => { setTestText('Hola') }, 10000)
   }
 
   const writeArea = () => (
-    <div className='write-area'>
+    <div className={`write-area ${isWritting && testtext ? '' : 'hidden'}`}>
       <div className={`results ${resVisible ? 'visible' : ''}`}>
         <div className='measure'>
           <span className='code'>Errors</span>
@@ -46,7 +48,7 @@ const Home = () => {
   )
 
   const landing = () => (
-    <div className='landing'>
+    <div className={`landing ${isWritting ? 'hidden' : ''}`}>
       <div className='spectacular'>
         <div className='container'>
           <span>improve your typing skills</span>
@@ -57,12 +59,26 @@ const Home = () => {
       <button onClick={handlePractice}>Practice</button>
     </div>
   )
+
+  const skeleton = () => (
+    <div className='skeleton'>
+      <div className='loader max' />
+      <div className='loader min' />
+    </div>
+  )
+
+  const keyboard = () => (
+    <div className='keyboard' />
+  )
+
   return (
     <div className='home' id='home'>
       <button className='config'>
         <img src={settings} alt='config' />
       </button>
-      {isWritting ? writeArea() : landing()}
+      {isWritting && !testtext ? skeleton() : <></>}
+      {isWritting && testtext ? writeArea() : landing()}
+      {isWritting && testtext ? keyboard() : <></>}
     </div>
   )
 }
