@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import UserContext from '../../common/context/user'
 import settings from '../../assets/icons/settings.svg'
 import './index.sass'
 
@@ -13,18 +14,27 @@ const Home = () => {
   const [begin, setBegin] = useState(null)
   const [end, setEnd] = useState(null)
 
-  const handlePractice = async () => {
+  const usrctx = useContext(UserContext)
+
+  const handlePractice = () => {
     setIsWritting(true)
 
-    // getText
+    /* fetch(`http://localhost:8000/api/text/${usrctx.token}`, {
+      method: 'GET'
+    })
+      .then(response => response.json())
+      .then(response => {
+        if (!response.status) { return }
 
-    setTimeout(() => setTestText('Hola esta es una prueba de texto'), 1000)
+        setTestText(response.text)
+      })
+      .catch(err => console.log(err)) */
+
+    setTimeout(() => setTestText('Hola este es un texto de prueba para la mamada de porqueria y asi podemos probarla'), 1500)
   }
 
   const handleKeyDown = e => {
     const regex = /[a-zA-Z0-9 .,!?;:"()@#$%&*_+=-]/
-
-    console.log(e.key)
 
     if (e.key === 'Tab' || e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.preventDefault()
@@ -89,6 +99,7 @@ const Home = () => {
 
       let duration = end - begin
       duration = duration / 1000
+      duration = Number(duration.toFixed(2))
 
       const words = arrText.length * 60 / duration
       const pres = 100 - (errs * 100 / arrText.length)
@@ -99,7 +110,25 @@ const Home = () => {
 
       setResVisible(true)
 
-      // testRegister
+      fetch(`http://localhost:8000/api/test/register/${usrctx.token}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          cpm: Number(words.toFixed(2)),
+          date: new Date().toUTCString(),
+          time: duration,
+          length: arrText.length,
+          errors: Number(errs.toFixed(2)),
+          precision: Number(pres.toFixed(2))
+        })
+      })
+        .then(response => response.json())
+        .then(response => {
+          if (!response.status) {
+            console.log('cant register data')
+          }
+        })
+        .catch(err => console.log(err))
     }
   }, [begin, end])
 

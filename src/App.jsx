@@ -31,7 +31,7 @@ const AppPreview = () => {
     date.setTime(date.getTime() + 5 * 24 * 60 * 60 * 1000)
     document.cookie = `token=${token};expires=${date.toUTCString()};path=/`
 
-    usrctx.set(token)
+    usrctx.setToken(token)
     getConf(token)
   }
 
