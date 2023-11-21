@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import UserContext, { UserProvider } from './common/context/user'
 import Header from './components/header'
 import Home from './pages/home'
 import Profile from './pages/profile'
@@ -10,11 +11,25 @@ import 'react-toastify/dist/ReactToastify.css'
 import './App.sass'
 
 const AppPreview = () => {
-  const setCookie = token => {
+  const usrctx = useContext(UserContext)
+
+  const setData = token => {
     const date = new Date()
 
     date.setTime(date.getTime() + 5 * 24 * 60 * 60 * 1000)
     document.cookie = `token=${token};expires=${date.toUTCString()};path=/`
+
+    usrctx.setToken(token)
+
+    fetch(`https://aitypingbackend-dev-qmsf.4.us-1.fl0.io/api/config/${token}`, {
+      method: 'GET'
+    })
+      .then(response => response.json())
+      .then(response => {
+        if (!response.status) { return }
+        usrctx.setConfig(response.conf)
+      })
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -29,9 +44,9 @@ const AppPreview = () => {
           if (!response.status) { return }
 
           const token = response.token
-          setCookie(token)
+          setData(token)
         })
-        .catch(() => console.log('Register error'))
+        .catch(err => console.log(err))
     } else {
       const token = document.cookie.split('=')[1]
 
@@ -43,10 +58,10 @@ const AppPreview = () => {
           if (!response.status) { return }
 
           if (!response.wasUpdated) {
-            setCookie(response.token)
+            setData(response.token)
           }
         })
-        .catch(() => console.log('Error update entry'))
+        .catch(err => console.log(err))
     }
   }, [])
   return (
@@ -73,7 +88,9 @@ const AppPreview = () => {
 }
 
 const App = () => (
-  <AppPreview />
+  <UserProvider>
+    <AppPreview />
+  </UserProvider>
 )
 
 export default App
