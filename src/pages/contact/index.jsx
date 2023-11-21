@@ -18,7 +18,7 @@ const Contact = () => {
   }
 
   const handleSendMessage = () => {
-    fetch(`http://localhost:8000/api/message/${usrctx.token}`, {
+    fetch(`https://aitypingbackend-dev-qmsf.4.us-1.fl0.io/api/message/${usrctx.token}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message })

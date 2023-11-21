@@ -31,7 +31,7 @@ const Profile = () => {
   }, [])
 
   const getData = () => {
-    fetch(`http://localhost:8000/api/test/history/${selected}/${usrctx.token}`, {
+    fetch(`https://aitypingbackend-dev-qmsf.4.us-1.fl0.io/api/test/history/${selected}/${usrctx.token}`, {
       method: 'GET'
     })
       .then(response => response.json())

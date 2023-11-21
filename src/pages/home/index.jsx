@@ -19,7 +19,7 @@ const Home = () => {
   const handlePractice = () => {
     setIsWritting(true)
 
-    fetch(`http://localhost:8000/api/text/${usrctx.token}`, {
+    fetch(`https://aitypingbackend-dev-qmsf.4.us-1.fl0.io/api/text/${usrctx.token}`, {
       method: 'GET'
     })
       .then(response => response.json())
@@ -108,7 +108,7 @@ const Home = () => {
 
       setResVisible(true)
 
-      fetch(`http://localhost:8000/api/test/register/${usrctx.token}`, {
+      fetch(`https://aitypingbackend-dev-qmsf.4.us-1.fl0.io/api/test/register/${usrctx.token}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
