@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import firebase from 'firebase/compat/app'
 import OpenAIContext from '../../common/context/openai'
 import FirebaseContext from '../../common/context/firebase'
 import settings from '../../assets/icons/settings.svg'
@@ -21,14 +22,14 @@ const Home = () => {
   const handlePractice = async () => {
     setIsWritting(true)
 
-    const chatCompletion = await aicontext.openai.chat.completions.create({
-      messages: [{ role: 'user', content: 'Dame un texto de entre 80 y 100 palabras acerca de un suceso historico para el mundo de la programación' }],
-      model: 'gpt-3.5-turbo'
-    })
+    // const chatCompletion = await aicontext.openai.chat.completions.create({
+    //  messages: [{ role: 'user', content: 'Dame un texto de entre 45 y 60 palabras acerca de un suceso historico para el mundo de la programación' }],
+    //  model: 'gpt-3.5-turbo'
+    // })
+    //
+    // setTestText(chatCompletion.choices[0].message.content)
 
-    setTestText(chatCompletion.choices[0].message.content)
-
-    // setTimeout(() => setTestText('Hola esta es una prueba de texto'), 1000)
+    setTimeout(() => setTestText('Hola esta es una prueba de texto'), 1000)
   }
 
   const handleKeyDown = e => {
@@ -46,7 +47,7 @@ const Home = () => {
     }
 
     if (text === '') {
-      setBegin(new Date())
+      setBegin(window.performance.now())
     }
   }
 
@@ -56,7 +57,7 @@ const Home = () => {
 
       e.currentTarget.readOnly = true
 
-      setEnd(new Date())
+      setEnd(window.performance.now())
     }
   }
 
@@ -143,10 +144,10 @@ const Home = () => {
         }
       }
 
-      let time = end.getTime() - begin.getTime()
-      time = time / 1000
+      let duration = end - begin
+      duration = duration / 1000
 
-      const words = arrText.length * 60 / time
+      const words = arrText.length * 60 / duration
       const pres = 100 - (errs * 100 / arrText.length)
 
       setErrors(errs)
@@ -155,11 +156,17 @@ const Home = () => {
 
       setResVisible(true)
 
-      const date = new Date()
-      const id = date.getTime().toString()
+      firectx.db.collection('Users').doc(firectx.id).set({
+        time: firebase.firestore.FieldValue.increment(duration),
+        characters: firebase.firestore.FieldValue.increment(arrTestText.length)
+      }, { merge: true })
 
-      firectx.db.collection('Test').doc(id).set({
-        user: firectx.id, errors: errs, precision: pres, wpm: words
+      firectx.db.collection('Tests').add({
+        _user: firectx.id,
+        errors: errs,
+        precision: pres,
+        wordspm: words,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
         .then(ref => {})
         .catch(err => { console.log(err) })

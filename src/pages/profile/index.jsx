@@ -48,7 +48,9 @@ const Profile = () => {
           console.log(doc.data())
         })
 
-        ids = ids.sort().reverse()
+        ids = ids.sort()
+
+        console.log(ids)
 
         const newData = []
 

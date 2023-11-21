@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { PATHS } from '../../common/consts'
-import _logo from '../../assets/icons/_logo.svg'
+import _logo from '../../assets/icons/logo.svg'
 import './index.sass'
 
 const Header = () => {
