@@ -1,7 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
-import firebase from 'firebase/compat/app'
-import OpenAIContext from '../../common/context/openai'
-import FirebaseContext from '../../common/context/firebase'
+import { useEffect, useState } from 'react'
 import settings from '../../assets/icons/settings.svg'
 import './index.sass'
 
@@ -16,18 +13,10 @@ const Home = () => {
   const [begin, setBegin] = useState(null)
   const [end, setEnd] = useState(null)
 
-  const aicontext = useContext(OpenAIContext)
-  const firectx = useContext(FirebaseContext)
-
   const handlePractice = async () => {
     setIsWritting(true)
 
-    // const chatCompletion = await aicontext.openai.chat.completions.create({
-    //  messages: [{ role: 'user', content: 'Dame un texto de entre 45 y 60 palabras acerca de un suceso historico para el mundo de la programación' }],
-    //  model: 'gpt-3.5-turbo'
-    // })
-    //
-    // setTestText(chatCompletion.choices[0].message.content)
+    // getText
 
     setTimeout(() => setTestText('Hola esta es una prueba de texto'), 1000)
   }
@@ -37,7 +26,7 @@ const Home = () => {
 
     console.log(e.key)
 
-    if (e.key === 'Backspace' || e.key === 'Tab' || e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    if (e.key === 'Tab' || e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.preventDefault()
       return
     }
@@ -85,6 +74,35 @@ const Home = () => {
     handlePractice()
   }
 
+  useEffect(() => {
+    if (begin && end) {
+      const arrTestText = testtext.split('')
+      const arrText = text.split('')
+
+      let errs = 0
+
+      for (let i = 0; i < arrTestText.length; i++) {
+        if (arrTestText[i] !== arrText[i]) {
+          errs++
+        }
+      }
+
+      let duration = end - begin
+      duration = duration / 1000
+
+      const words = arrText.length * 60 / duration
+      const pres = 100 - (errs * 100 / arrText.length)
+
+      setErrors(errs)
+      setPrecision(pres)
+      setWPM(words)
+
+      setResVisible(true)
+
+      // testRegister
+    }
+  }, [begin, end])
+
   const writeArea = () => (
     <div className={`write-area ${isWritting && testtext ? '' : 'hidden'}`}>
       <div className={`results ${resVisible ? 'visible' : ''}`}>
@@ -130,48 +148,6 @@ const Home = () => {
   const keyboard = () => (
     <div className='keyboard' />
   )
-
-  useEffect(() => {
-    if (begin && end) {
-      const arrTestText = testtext.split('')
-      const arrText = text.split('')
-
-      let errs = 0
-
-      for (let i = 0; i < arrTestText.length; i++) {
-        if (arrTestText[i] !== arrText[i]) {
-          errs++
-        }
-      }
-
-      let duration = end - begin
-      duration = duration / 1000
-
-      const words = arrText.length * 60 / duration
-      const pres = 100 - (errs * 100 / arrText.length)
-
-      setErrors(errs)
-      setPrecision(pres)
-      setWPM(words)
-
-      setResVisible(true)
-
-      firectx.db.collection('Users').doc(firectx.id).set({
-        time: firebase.firestore.FieldValue.increment(duration),
-        characters: firebase.firestore.FieldValue.increment(arrTestText.length)
-      }, { merge: true })
-
-      firectx.db.collection('Tests').add({
-        _user: firectx.id,
-        errors: errs,
-        precision: pres,
-        wordspm: words,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      })
-        .then(ref => {})
-        .catch(err => { console.log(err) })
-    }
-  }, [begin, end])
 
   return (
     <div className='home' id='home'>

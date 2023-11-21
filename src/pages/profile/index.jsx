@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
-import FirebaseContext from '../../common/context/firebase'
+import { useEffect, useState } from 'react'
 import { Chart, CategoryScale } from 'chart.js/auto'
 import { Line } from 'react-chartjs-2'
 import './index.sass'
@@ -17,8 +16,6 @@ const Profile = () => {
     { id: 'pcs', text: 'Precision' }
   ]
 
-  const firectx = useContext(FirebaseContext)
-
   useEffect(() => {
     const ctx = document.createElement('canvas').getContext('2d')
 
@@ -31,40 +28,7 @@ const Profile = () => {
   }, [])
 
   const getData = () => {
-    console.log('entro')
-    firectx.db.collection('Test').where('user', '==', firectx.id)
-      .get()
-      .then(query => {
-        let ids = []
-        const dats = {}
-
-        query.forEach((doc) => {
-          ids.push(doc.id)
-
-          if (selected === 'err') { dats[doc.id] = doc.data().errors }
-          if (selected === 'wpm') { dats[doc.id] = doc.data().wpm }
-          if (selected === 'pcs') { dats[doc.id] = doc.data().precision }
-
-          console.log(doc.data())
-        })
-
-        ids = ids.sort()
-
-        console.log(ids)
-
-        const newData = []
-
-        for (let i = 0; i < ids.length; i++) {
-          newData.push(dats[ids[i]])
-
-          if (i >= 5) {
-            break
-          }
-        }
-
-        setData(newData.reverse())
-      })
-      .catch(err => { console.log(err) })
+    // getTestHistory
   }
 
   const handleChangeSelected = id => {

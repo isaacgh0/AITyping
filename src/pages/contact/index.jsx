@@ -1,12 +1,9 @@
-import { useContext, useState } from 'react'
-import FirebaseContext from '../../common/context/firebase'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import './index.sass'
 
 const Contact = () => {
   const [message, setMessage] = useState('')
-
-  const firectx = useContext(FirebaseContext)
 
   const handleClearMessage = () => {
     setMessage('')
@@ -18,17 +15,7 @@ const Contact = () => {
   }
 
   const handleSendMessage = () => {
-    firectx.db.collection('messages').add({
-      id: firectx.id, message
-    })
-      .then(ref => {
-        handleClearMessage()
-        toast.success('Mensaje enviado')
-      })
-      .catch(err => {
-        console.error(err)
-        toast.error('Error al enviar el mensaje')
-      })
+    // setMessage
   }
 
   return (
