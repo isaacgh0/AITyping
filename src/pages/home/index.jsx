@@ -19,7 +19,7 @@ const Home = () => {
   const handlePractice = () => {
     setIsWritting(true)
 
-    /* fetch(`http://localhost:8000/api/text/${usrctx.token}`, {
+    fetch(`http://localhost:8000/api/text/${usrctx.token}`, {
       method: 'GET'
     })
       .then(response => response.json())
@@ -28,9 +28,7 @@ const Home = () => {
 
         setTestText(response.text)
       })
-      .catch(err => console.log(err)) */
-
-    setTimeout(() => setTestText('Hola este es un texto de prueba para la mamada de porqueria y asi podemos probarla'), 1500)
+      .catch(err => console.log(err))
   }
 
   const handleKeyDown = e => {

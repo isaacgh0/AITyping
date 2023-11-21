@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Chart, CategoryScale } from 'chart.js/auto'
 import { Line } from 'react-chartjs-2'
+import UserContext from '../../common/context/user'
 import './index.sass'
 
 Chart.register(CategoryScale)
@@ -10,10 +11,12 @@ const Profile = () => {
   const [gradient, setGradient] = useState(null)
   const [data, setData] = useState([])
 
+  const usrctx = useContext(UserContext)
+
   const options = [
-    { id: 'err', text: 'Errors' },
-    { id: 'wpm', text: 'Words PM' },
-    { id: 'pcs', text: 'Precision' }
+    { id: 'errors', text: 'Errors' },
+    { id: 'cpm', text: 'Words PM' },
+    { id: 'precision', text: 'Precision' }
   ]
 
   useEffect(() => {
@@ -28,7 +31,19 @@ const Profile = () => {
   }, [])
 
   const getData = () => {
-    // getTestHistory
+    fetch(`http://localhost:8000/api/test/history/${selected}/${usrctx.token}`, {
+      method: 'GET'
+    })
+      .then(response => response.json())
+      .then(response => {
+        if (!response.status) { return }
+
+        if (response.entries) {
+          console.log(response.analytics.test)
+          setData(response.analytics.test)
+        }
+      })
+      .catch(err => console.log(err))
   }
 
   const handleChangeSelected = id => {
@@ -56,7 +71,7 @@ const Profile = () => {
         <div className='chart'>
           <Line
             data={{
-              labels: ['1', '2', '3', '4', '5'],
+              labels: ['7', '6', '5', '4', '3', '2', '1'],
               datasets: [{
                 data,
                 fill: true,
