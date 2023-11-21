@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import UserContext from '../../common/context/user'
 import { toast } from 'react-toastify'
 import './index.sass'
 
 const Contact = () => {
   const [message, setMessage] = useState('')
+
+  const usrctx = useContext(UserContext)
 
   const handleClearMessage = () => {
     setMessage('')
@@ -15,7 +18,20 @@ const Contact = () => {
   }
 
   const handleSendMessage = () => {
-    // setMessage
+    fetch(`http://localhost:8000/api/message/${usrctx.token}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
+    })
+      .then(response => response.json())
+      .then(response => {
+        if (!response.status) {
+          return toast.error('No se pudo enviar el mensaje')
+        }
+
+        toast.success('Mensaje enviado')
+      })
+      .catch(err => console.log(err))
   }
 
   return (

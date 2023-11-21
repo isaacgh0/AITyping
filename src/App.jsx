@@ -13,14 +13,7 @@ import './App.sass'
 const AppPreview = () => {
   const usrctx = useContext(UserContext)
 
-  const setData = token => {
-    const date = new Date()
-
-    date.setTime(date.getTime() + 5 * 24 * 60 * 60 * 1000)
-    document.cookie = `token=${token};expires=${date.toUTCString()};path=/`
-
-    usrctx.setToken(token)
-
+  const getConf = token => {
     fetch(`https://aitypingbackend-dev-qmsf.4.us-1.fl0.io/api/config/${token}`, {
       method: 'GET'
     })
@@ -30,6 +23,16 @@ const AppPreview = () => {
         usrctx.setConfig(response.conf)
       })
       .catch(err => console.log(err))
+  }
+
+  const setData = token => {
+    const date = new Date()
+
+    date.setTime(date.getTime() + 5 * 24 * 60 * 60 * 1000)
+    document.cookie = `token=${token};expires=${date.toUTCString()};path=/`
+
+    usrctx.set(token)
+    getConf(token)
   }
 
   useEffect(() => {
@@ -57,13 +60,12 @@ const AppPreview = () => {
         .then(response => {
           if (!response.status) { return }
 
-          if (!response.wasUpdated) {
-            setData(response.token)
-          }
+          setData(!response.wasUpdated ? response.token : token)
         })
         .catch(err => console.log(err))
     }
   }, [])
+
   return (
     <>
       <ToastContainer
